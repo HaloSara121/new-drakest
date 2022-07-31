@@ -5,10 +5,11 @@ import { Input as ChakraInput, InputProps } from '@chakra-ui/react'
 export const InputBase: ForwardRefRenderFunction<
   HTMLInputElement,
   InputProps
-> = ({ ...rest }: InputProps) => {
+> = ({ ...rest }: InputProps, ref) => {
   return (
     <ChakraInput
       {...rest}
+      ref={ref}
       variant="unstyled"
       borderBottom="2px"
       rounded="none"

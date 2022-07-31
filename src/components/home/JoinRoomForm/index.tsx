@@ -14,14 +14,18 @@ const JoinRoomFormValidationSchema = zod.object({
 type JoinRoomFormData = zod.infer<typeof JoinRoomFormValidationSchema>
 
 export const JoinRoomForm: NextComponentType = () => {
-  const { register, handleSubmit } = useForm<JoinRoomFormData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<JoinRoomFormData>({
     resolver: zodResolver(JoinRoomFormValidationSchema),
     defaultValues: {
-      roomId: '000000',
+      roomId: '',
     },
   })
 
-  function handleJoinRoom(data: any) {
+  function handleJoinRoom(data: JoinRoomFormData) {
     console.log(data)
   }
 
@@ -37,7 +41,17 @@ export const JoinRoomForm: NextComponentType = () => {
         Entrar em uma sala
       </Text>
 
-      <Input placeholder="ID da sala" {...register('roomId')} />
+      {errors.roomId && (
+        <Text fontWeight="normal" fontSize="sm" my="-4" color="red.500">
+          {errors.roomId.message}
+        </Text>
+      )}
+
+      <Input
+        placeholder="ID da sala"
+        {...register('roomId')}
+        borderColor={errors.roomId ? 'red.500 !important' : ''}
+      />
 
       <Button
         type="submit"

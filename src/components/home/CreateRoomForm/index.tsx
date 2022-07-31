@@ -14,7 +14,12 @@ const createRoomFormValidationSchema = zod.object({
 type CreateRoomFormData = zod.infer<typeof createRoomFormValidationSchema>
 
 export const CreateRoomForm: NextComponentType = () => {
-  const { register, handleSubmit, reset } = useForm<CreateRoomFormData>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CreateRoomFormData>({
     resolver: zodResolver(createRoomFormValidationSchema),
     defaultValues: {
       roomName: '',
@@ -38,10 +43,17 @@ export const CreateRoomForm: NextComponentType = () => {
         Criar uma sala
       </Text>
 
+      {errors.roomName && (
+        <Text fontWeight="normal" fontSize="sm" my="-4" color="red.500">
+          {errors.roomName.message}
+        </Text>
+      )}
+
       <Input
         placeholder="Nome da Sala"
-        {...register('roomName')}
         autoComplete="off"
+        borderColor={errors.roomName ? 'red.500 !important' : ''}
+        {...register('roomName', { required: true })}
       />
 
       <Button
