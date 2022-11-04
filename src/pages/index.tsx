@@ -1,22 +1,16 @@
 import type { NextPage } from 'next'
 
-import { Flex, Image } from '@chakra-ui/react'
-import { HomeHeader } from '../components/home/HomeHeader/HomeHeader'
-import { JoinRoomForm } from '../components/home/JoinRoomForm'
-import { CreateRoomForm } from '../components/home/CreateRoomForm'
+import { Flex } from '@chakra-ui/react'
+
+import { Banner } from '../components/home/Banner'
+import { Actions } from '../components/home/Actions'
 
 const Home: NextPage = () => {
   return (
-    <Flex align="center" flexDirection="column" px="4">
-      <HomeHeader />
+    <Flex align="center" position="relative">
+      <Banner />
 
-      <Image src="/images/bg.png" w="35rem" mt="-10" alt="" />
-
-      <Flex justify="space-between" w="100%" maxW="700px" mt="20">
-        <CreateRoomForm />
-
-        <JoinRoomForm />
-      </Flex>
+      <Actions />
     </Flex>
   )
 }

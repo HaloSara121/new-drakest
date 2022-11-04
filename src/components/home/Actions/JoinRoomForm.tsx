@@ -49,8 +49,9 @@ export const JoinRoomForm: NextComponentType = () => {
 
       <Input
         placeholder="ID da sala"
-        {...register('roomId')}
+        type="number"
         borderColor={errors.roomId ? 'red.500 !important' : ''}
+        {...register('roomId')}
       />
 
       <Button

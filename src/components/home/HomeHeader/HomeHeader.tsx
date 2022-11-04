@@ -1,6 +1,6 @@
 import type { NextComponentType } from 'next'
 
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { LoginButton } from './LoginButton'
 
 export const HomeHeader: NextComponentType = () => {
@@ -8,17 +8,12 @@ export const HomeHeader: NextComponentType = () => {
     <Flex
       as="header"
       h="10rem"
-      w="100%"
-      maxW="1400px"
       py="10"
       px="10"
-      align="center"
-      justify="space-between"
+      position="absolute"
+      top="2rem"
+      right="5rem"
     >
-      <Text fontSize="4xl" color="yellow.500" fontFamily="Aclonica">
-        Drakest
-      </Text>
-
       <LoginButton />
     </Flex>
   )

@@ -39,6 +39,8 @@ export const LoginButton: NextComponentType = () => {
       ) : (
         <IconButton
           aria-label="botão de login"
+          w="12"
+          h="12"
           _hover={{ filter: 'brightness(0.8)' }}
         >
           <FcGoogle size={32} />
