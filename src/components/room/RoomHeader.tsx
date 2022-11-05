@@ -1,9 +1,33 @@
 import type { NextComponentType } from 'next'
 
-import { Flex, HStack, Icon, Link, Text, Image } from '@chakra-ui/react'
-import { ArrowLeft, Gear, List } from 'phosphor-react'
+import {
+  Flex,
+  HStack,
+  Icon,
+  Link,
+  Text,
+  Image,
+  Button,
+  useToast,
+} from '@chakra-ui/react'
+import { ArrowLeft, Copy, Gear, List } from 'phosphor-react'
+import { useRouter } from 'next/router'
 
 export const RoomHeader: NextComponentType = () => {
+  const router = useRouter()
+  const toast = useToast()
+
+  const roomId = router.asPath.split('/')[2]
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(roomId)
+
+    toast({
+      description: 'O ID da sala foi copiado!',
+      status: 'success',
+    })
+  }
+
   return (
     <Flex as="header" h="4rem" bg="gray.700" justify="center" w="100%">
       <Flex justify="space-between" align="center" w="100%" maxW="1400px">
@@ -37,7 +61,17 @@ export const RoomHeader: NextComponentType = () => {
           Torre Negra
         </Text>
 
-        <Flex>
+        <Flex align="center" gap="1rem">
+          <Button
+            colorScheme="yellow"
+            display="flex"
+            gap=".5rem"
+            px=".8rem"
+            onClick={copyToClipboard}
+          >
+            <Copy weight="bold" /> #{roomId}
+          </Button>
+
           <Flex
             borderRadius="md"
             gap="3"

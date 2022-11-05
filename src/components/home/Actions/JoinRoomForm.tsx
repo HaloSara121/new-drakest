@@ -6,6 +6,7 @@ import * as zod from 'zod'
 import { Button, Flex, Text } from '@chakra-ui/react'
 
 import { Input } from '../../common/Form/Input'
+import { useRouter } from 'next/router'
 
 const JoinRoomFormValidationSchema = zod.object({
   roomId: zod.string().length(6, 'O id da sala deve ter 6 digitos'),
@@ -14,12 +15,15 @@ const JoinRoomFormValidationSchema = zod.object({
 type JoinRoomFormData = zod.infer<typeof JoinRoomFormValidationSchema>
 
 export const JoinRoomForm: NextComponentType = () => {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<JoinRoomFormData>({
     resolver: zodResolver(JoinRoomFormValidationSchema),
+
     defaultValues: {
       roomId: '',
     },
@@ -27,6 +31,7 @@ export const JoinRoomForm: NextComponentType = () => {
 
   function handleJoinRoom(data: JoinRoomFormData) {
     console.log(data)
+    router.push(`/room/${data.roomId}`)
   }
 
   return (
