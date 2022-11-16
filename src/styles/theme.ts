@@ -21,7 +21,7 @@ export const theme = extendTheme({
       heading: 'Quicksand',
     },
     global: {
-      body: {
+      'body, html': {
         bg: 'gray.800',
         color: 'gray.50',
       },

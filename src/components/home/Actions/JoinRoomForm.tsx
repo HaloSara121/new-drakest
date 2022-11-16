@@ -30,7 +30,6 @@ export const JoinRoomForm: NextComponentType = () => {
   })
 
   function handleJoinRoom(data: JoinRoomFormData) {
-    console.log(data)
     router.push(`/room/${data.roomId}`)
   }
 

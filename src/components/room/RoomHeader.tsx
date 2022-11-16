@@ -31,31 +31,31 @@ export const RoomHeader: NextComponentType = () => {
   return (
     <Flex as="header" h="4rem" bg="gray.700" justify="center" w="100%">
       <Flex justify="space-between" align="center" w="100%" maxW="1400px">
-        <HStack alignItems="center" spacing="4">
+        <Flex gap="2rem" align="center">
           <Link href="/" fontSize="0">
             <Icon
               as={ArrowLeft}
-              fontSize="24px"
+              fontSize="28px"
               _hover={{ transform: 'scale(1.1)' }}
             />
           </Link>
 
-          <Link href="" fontSize="0">
+          <HStack alignItems="center" spacing="4">
             <Icon
               as={Gear}
               fontSize="24px"
               _hover={{ transform: 'scale(1.1)' }}
+              cursor="pointer"
             />
-          </Link>
 
-          <Link href="" fontSize="0">
             <Icon
               as={List}
               fontSize="24px"
               _hover={{ transform: 'scale(1.1)' }}
+              cursor="pointer"
             />
-          </Link>
-        </HStack>
+          </HStack>
+        </Flex>
 
         <Text fontWeight="semibold" letterSpacing="wide" fontSize="2xl">
           Torre Negra
@@ -72,19 +72,12 @@ export const RoomHeader: NextComponentType = () => {
             <Copy weight="bold" /> #{roomId}
           </Button>
 
-          <Flex
-            borderRadius="md"
-            gap="3"
-            h="12"
-            pr="3"
-            align="center"
-            bg="gray.600"
-          >
+          <Flex rounded="md" gap="3" h="12" pr="3" align="center" bg="gray.600">
             <Image
               src="https://github.com/HaloSara121.png"
               w="12"
               cursor="pointer"
-              borderRadius="md"
+              rounded="md"
               _hover={{ boxShadow: '0 0 0 3px #D69E2E' }}
               alt="Imagem de perfil"
             />

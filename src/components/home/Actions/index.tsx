@@ -8,7 +8,7 @@ import { JoinRoomForm } from './JoinRoomForm'
 export const Actions: NextComponentType = () => {
   return (
     <Flex
-      w="45vw"
+      w="30vw"
       h="100vh"
       justify="center"
       align="center"
