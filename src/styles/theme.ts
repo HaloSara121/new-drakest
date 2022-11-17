@@ -24,6 +24,7 @@ export const theme = extendTheme({
       'body, html': {
         bg: 'gray.800',
         color: 'gray.50',
+        overflow: 'hidden',
       },
     },
   },
