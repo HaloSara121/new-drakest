@@ -4,34 +4,29 @@ import {
   Tab,
   TabList,
   Tabs,
-  Icon,
   TabPanels,
   TabPanel,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { CaretUp, CaretDown } from 'phosphor-react'
+import { ToggleShieldMasterButton } from './ToggleShieldMastarButton'
 
-interface ShieldMasterProps {
-  isOpen: boolean
-  onClose: () => void
-  onOpen: () => void
-}
+export const ShieldMaster = () => {
+  const { isOpen, onClose, onOpen } = useDisclosure()
 
-export const ShieldMaster = ({
-  isOpen,
-  onClose,
-  onOpen,
-}: ShieldMasterProps) => {
   return (
     <Flex
       as={motion.div}
       bg="gray.900"
       w="100%"
-      h={isOpen ? '20rem' : '3rem'}
+      h={isOpen ? '20rem' : '3.6rem'}
       transition="height .5s"
       position="absolute"
       bottom="0"
-      p="1"
+      py="2"
+      boxShadow="-3px 3px 10px #0004"
+      borderTop="3px solid"
+      borderColor="gray.600"
     >
       <Tabs
         variant="soft-rounded"
@@ -41,12 +36,13 @@ export const ShieldMaster = ({
         mx="auto"
         px="1rem"
       >
-        <TabList flex="1">
+        <TabList flex="1" gap="2">
           <Tab
-            bg="gray.800"
+            bg="gray.700"
             color="white"
             transition="all .2s"
             onClick={onOpen}
+            rounded="md"
             _selected={{
               bg: 'yellow.500',
               color: 'black',
@@ -58,10 +54,11 @@ export const ShieldMaster = ({
           </Tab>
 
           <Tab
-            bg="gray.800"
+            bg="gray.700"
             color="white"
             transition="all .2s"
             onClick={onOpen}
+            rounded="md"
             _selected={{
               bg: 'yellow.500',
               color: 'black',
@@ -73,10 +70,11 @@ export const ShieldMaster = ({
           </Tab>
 
           <Tab
-            bg="gray.800"
+            bg="gray.700"
             color="white"
             transition="all .2s"
             onClick={onOpen}
+            rounded="md"
             _selected={{
               bg: 'yellow.500',
               color: 'black',
@@ -88,10 +86,11 @@ export const ShieldMaster = ({
           </Tab>
 
           <Tab
-            bg="gray.800"
+            bg="gray.700"
             color="white"
             transition="all .2s"
             onClick={onOpen}
+            rounded="md"
             _selected={{
               bg: 'yellow.500',
               color: 'black',
@@ -102,28 +101,14 @@ export const ShieldMaster = ({
             SALA
           </Tab>
 
-          <Flex align="center" justify="flex-end" w="50%">
-            {isOpen ? (
-              <Icon
-                as={CaretDown}
-                fontSize="24"
-                cursor="pointer"
-                onClick={onClose}
-                _hover={{ transform: 'scale(1.2)', transition: 'all .2s' }}
-              />
-            ) : (
-              <Icon
-                as={CaretUp}
-                fontSize="24"
-                cursor="pointer"
-                onClick={onOpen}
-                _hover={{ transform: 'scale(1.2)', transition: 'all .2s' }}
-              />
-            )}
-          </Flex>
+          <ToggleShieldMasterButton
+            isOpen={isOpen}
+            onClose={onClose}
+            onOpen={onOpen}
+          />
         </TabList>
         {isOpen && (
-          <TabPanels as={motion.div}>
+          <TabPanels mt="2">
             <TabPanel h="16rem">
               <Text>BOSSES</Text>
             </TabPanel>

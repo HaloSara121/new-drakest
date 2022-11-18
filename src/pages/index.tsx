@@ -7,7 +7,7 @@ import { Actions } from '../components/home/Actions'
 
 const Home: NextPage = () => {
   return (
-    <Flex align="center" position="relative">
+    <Flex align="center">
       <Banner />
 
       <Actions />

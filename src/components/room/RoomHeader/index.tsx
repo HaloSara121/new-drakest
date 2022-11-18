@@ -9,11 +9,24 @@ import {
   Image,
   Button,
   useToast,
+  Portal,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
+  Input,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { ArrowLeft, Copy, Gear, List } from 'phosphor-react'
 import { useRouter } from 'next/router'
+import { useRef } from 'react'
 
 export const RoomHeader: NextComponentType = () => {
+  const { isOpen, onClose, onOpen } = useDisclosure()
+  const btnRef = useRef(null)
   const router = useRouter()
   const toast = useToast()
 
@@ -46,6 +59,7 @@ export const RoomHeader: NextComponentType = () => {
               fontSize="24px"
               _hover={{ transform: 'scale(1.1)' }}
               cursor="pointer"
+              onClick={onOpen}
             />
 
             <Icon
@@ -87,6 +101,33 @@ export const RoomHeader: NextComponentType = () => {
             </Text>
           </Flex>
         </Flex>
+
+        <Portal>
+          <Drawer
+            isOpen={isOpen}
+            placement="left"
+            onClose={onClose}
+            size="md"
+            finalFocusRef={btnRef}
+          >
+            <DrawerOverlay />
+            <DrawerContent bg="gray.800" w="25vw">
+              <DrawerCloseButton />
+              <DrawerHeader>Create your account</DrawerHeader>
+
+              <DrawerBody>
+                <Input placeholder="Type here..." />
+              </DrawerBody>
+
+              <DrawerFooter>
+                <Button variant="outline" mr={3} onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button colorScheme="blue">Save</Button>
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+        </Portal>
       </Flex>
     </Flex>
   )
