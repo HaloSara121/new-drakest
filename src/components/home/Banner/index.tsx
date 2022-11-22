@@ -12,7 +12,7 @@ export const Banner: NextComponentType = () => {
       flex="1"
       h="100vh"
       px="4px"
-      boxShadow="3px 3px 10px #0004"
+      boxShadow="dark-lg"
     >
       <Text fontSize="6xl" color="yellow.500" fontFamily="Aclonica">
         Drakest

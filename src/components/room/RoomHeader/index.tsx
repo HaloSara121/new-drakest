@@ -87,14 +87,16 @@ export const RoomHeader: NextComponentType = () => {
           </Button>
 
           <Flex rounded="md" gap="3" h="12" pr="3" align="center" bg="gray.600">
-            <Image
-              src="https://github.com/HaloSara121.png"
-              w="12"
-              cursor="pointer"
-              rounded="md"
-              _hover={{ boxShadow: '0 0 0 3px #D69E2E' }}
-              alt="Imagem de perfil"
-            />
+            <Link href="/profile">
+              <Image
+                src="https://github.com/HaloSara121.png"
+                w="12"
+                cursor="pointer"
+                rounded="md"
+                _hover={{ boxShadow: '0 0 0 3px #D69E2E' }}
+                alt="Imagem de perfil"
+              />
+            </Link>
 
             <Text fontWeight="bold" fontFamily="Quicksand">
               Vinicius Paes Berna
