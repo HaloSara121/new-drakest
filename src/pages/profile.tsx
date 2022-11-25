@@ -9,6 +9,8 @@ const Profile: NextPage = () => {
       maxW="1420px"
       w="100%"
       h="100vh"
+      flexDir={['column', 'column', 'column', 'row']}
+      align={['center', 'center', 'center', 'flex-start']}
       justify="space-between"
       gap="2rem"
       mx="auto"

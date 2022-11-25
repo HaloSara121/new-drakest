@@ -2,7 +2,7 @@ import { HouseLine, SignOut } from 'phosphor-react'
 
 import { Flex, Link, Tooltip } from '@chakra-ui/react'
 
-import { AvatarSection } from './avatarSection'
+import { AvatarSection } from './AvatarSection'
 
 export const Aside = () => {
   return (

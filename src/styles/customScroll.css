@@ -1,0 +1,17 @@
+.noScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.customScroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.customScroll::-webkit-scrollbar-track {
+  background: #CBD5E0;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  width: 8px;
+  background: #4A5568;
+  border-radius: 4px;
+}

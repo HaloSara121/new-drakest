@@ -36,7 +36,7 @@ export const AvatarSection = () => {
 
           <Avatar
             src="https://github.com/HaloSara121.png"
-            size="3xl"
+            size="2xl"
             zIndex="99"
           />
         </Flex>
