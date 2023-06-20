@@ -1,4 +1,4 @@
-import type { NextComponentType } from 'next'
+import type { NextComponentType } from "next";
 
 import {
   Flex,
@@ -19,37 +19,37 @@ import {
   DrawerFooter,
   Input,
   useDisclosure,
-} from '@chakra-ui/react'
-import { ArrowLeft, Copy, Gear, List } from 'phosphor-react'
-import { useRouter } from 'next/router'
-import { useRef } from 'react'
+} from "@chakra-ui/react";
+import { ArrowLeft, Copy, Gear, List } from "phosphor-react";
+import { useRouter } from "next/router";
+import { useRef } from "react";
 
 export const RoomHeader: NextComponentType = () => {
-  const { isOpen, onClose, onOpen } = useDisclosure()
-  const btnRef = useRef(null)
-  const router = useRouter()
-  const toast = useToast()
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const btnRef = useRef(null);
+  const router = useRouter();
+  const toast = useToast();
 
-  const roomId = router.asPath.split('/')[2]
+  const roomId = router.asPath.split("/")[2];
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(roomId)
+    navigator.clipboard.writeText(roomId);
 
     toast({
-      description: 'O ID da sala foi copiado!',
-      status: 'success',
-    })
-  }
+      description: "O ID da sala foi copiado!",
+      status: "success",
+    });
+  };
 
   return (
-    <Flex as="header" h="4rem" bg="gray.700" justify="center" w="100%">
+    <Flex as="header" h="4rem" bg="gray.900" justify="center" w="100%">
       <Flex justify="space-between" align="center" w="100%" maxW="1400px">
         <Flex gap="2rem" align="center">
           <Link href="/" fontSize="0">
             <Icon
               as={ArrowLeft}
               fontSize="28px"
-              _hover={{ transform: 'scale(1.1)' }}
+              _hover={{ transform: "scale(1.1)" }}
             />
           </Link>
 
@@ -57,7 +57,7 @@ export const RoomHeader: NextComponentType = () => {
             <Icon
               as={Gear}
               fontSize="24px"
-              _hover={{ transform: 'scale(1.1)' }}
+              _hover={{ transform: "scale(1.1)" }}
               cursor="pointer"
               onClick={onOpen}
             />
@@ -65,7 +65,7 @@ export const RoomHeader: NextComponentType = () => {
             <Icon
               as={List}
               fontSize="24px"
-              _hover={{ transform: 'scale(1.1)' }}
+              _hover={{ transform: "scale(1.1)" }}
               cursor="pointer"
             />
           </HStack>
@@ -93,7 +93,7 @@ export const RoomHeader: NextComponentType = () => {
                 w="12"
                 cursor="pointer"
                 rounded="md"
-                _hover={{ boxShadow: '0 0 0 3px #D69E2E' }}
+                _hover={{ boxShadow: "0 0 0 3px #D69E2E" }}
                 alt="Imagem de perfil"
               />
             </Link>
@@ -132,5 +132,5 @@ export const RoomHeader: NextComponentType = () => {
         </Portal>
       </Flex>
     </Flex>
-  )
-}
+  );
+};

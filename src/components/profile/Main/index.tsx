@@ -1,6 +1,6 @@
-import { Flex } from '@chakra-ui/react'
-import { CharacterSection } from './CharactersSection'
-import { RoomsSection } from './RoomsSections'
+import { Flex } from "@chakra-ui/react";
+import { CharacterSection } from "./CharactersSection";
+import { RoomsSection } from "./RoomsSections";
 
 export const Main = () => {
   return (
@@ -19,5 +19,5 @@ export const Main = () => {
       <CharacterSection />
       <RoomsSection />
     </Flex>
-  )
-}
+  );
+};

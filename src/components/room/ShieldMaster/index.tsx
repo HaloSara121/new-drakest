@@ -7,22 +7,23 @@ import {
   TabPanels,
   TabPanel,
   useDisclosure,
-} from '@chakra-ui/react'
-import { motion } from 'framer-motion'
-import { ToggleShieldMasterButton } from './ToggleShieldMastarButton'
+} from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { ToggleShieldMasterButton } from "./ToggleShieldMastarButton";
 
 export const ShieldMaster = () => {
-  const { isOpen, onClose, onOpen } = useDisclosure()
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <Flex
       as={motion.div}
       bg="gray.900"
       w="100%"
-      h={isOpen ? '20rem' : '3.6rem'}
+      h={isOpen ? "20rem" : "3.6rem"}
       transition="height .5s"
       position="absolute"
       bottom="0"
+      zIndex={10}
       py="2"
       boxShadow="-3px 3px 10px #0004"
       borderTop="3px solid"
@@ -44,11 +45,11 @@ export const ShieldMaster = () => {
             onClick={onOpen}
             rounded="md"
             _selected={{
-              bg: 'yellow.500',
-              color: 'black',
-              _hover: { filter: 'none' },
+              bg: "yellow.500",
+              color: "black",
+              _hover: { filter: "none" },
             }}
-            _hover={{ filter: 'brightness(.8)' }}
+            _hover={{ filter: "brightness(.8)" }}
           >
             BOSSES
           </Tab>
@@ -60,11 +61,11 @@ export const ShieldMaster = () => {
             onClick={onOpen}
             rounded="md"
             _selected={{
-              bg: 'yellow.500',
-              color: 'black',
-              _hover: { filter: 'none' },
+              bg: "yellow.500",
+              color: "black",
+              _hover: { filter: "none" },
             }}
-            _hover={{ filter: 'brightness(.8)' }}
+            _hover={{ filter: "brightness(.8)" }}
           >
             NPCs
           </Tab>
@@ -76,11 +77,11 @@ export const ShieldMaster = () => {
             onClick={onOpen}
             rounded="md"
             _selected={{
-              bg: 'yellow.500',
-              color: 'black',
-              _hover: { filter: 'none' },
+              bg: "yellow.500",
+              color: "black",
+              _hover: { filter: "none" },
             }}
-            _hover={{ filter: 'brightness(.8)' }}
+            _hover={{ filter: "brightness(.8)" }}
           >
             PLAYERS
           </Tab>
@@ -92,11 +93,11 @@ export const ShieldMaster = () => {
             onClick={onOpen}
             rounded="md"
             _selected={{
-              bg: 'yellow.500',
-              color: 'black',
-              _hover: { filter: 'none' },
+              bg: "yellow.500",
+              color: "black",
+              _hover: { filter: "none" },
             }}
-            _hover={{ filter: 'brightness(.8)' }}
+            _hover={{ filter: "brightness(.8)" }}
           >
             SALA
           </Tab>
@@ -125,5 +126,5 @@ export const ShieldMaster = () => {
         )}
       </Tabs>
     </Flex>
-  )
-}
+  );
+};

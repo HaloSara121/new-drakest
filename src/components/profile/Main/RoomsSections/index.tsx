@@ -1,11 +1,11 @@
-import { Divider, Flex, SimpleGrid, Text } from '@chakra-ui/react'
-import { RoomCard } from './RoomCard'
-import { CustomHeading } from './CustomHeading'
-import { useState } from 'react'
-import { NoteBlank } from 'phosphor-react'
+import { Divider, Flex, SimpleGrid, Text } from "@chakra-ui/react";
+import { RoomCard } from "./RoomCard";
+import { CustomHeading } from "./CustomHeading";
+import { useState } from "react";
+import { NoteBlank } from "phosphor-react";
 
 export const RoomsSection = () => {
-  const [rooms] = useState<number[]>([])
+  const [rooms] = useState<number[]>([1, 2]);
 
   return (
     <Flex as="section" w="100%" flexDir="column" mt="1rem">
@@ -26,5 +26,5 @@ export const RoomsSection = () => {
         </Flex>
       )}
     </Flex>
-  )
-}
+  );
+};

@@ -1,5 +1,5 @@
-import { Flex, Text, Image } from '@chakra-ui/react'
-import { NextComponentType } from 'next'
+import { Flex, Text, Image } from "@chakra-ui/react";
+import { NextComponentType } from "next";
 
 export const Banner: NextComponentType = () => {
   return (
@@ -13,6 +13,8 @@ export const Banner: NextComponentType = () => {
       h="100vh"
       px="4px"
       boxShadow="dark-lg"
+      position="relative"
+      zIndex={2}
     >
       <Text fontSize="6xl" color="yellow.500" fontFamily="Aclonica">
         Drakest
@@ -22,5 +24,5 @@ export const Banner: NextComponentType = () => {
 
       <Text fontSize="2xl">O seu site de RPG, simples e fácil.</Text>
     </Flex>
-  )
-}
+  );
+};

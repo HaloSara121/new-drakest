@@ -1,9 +1,9 @@
-import { Flex } from '@chakra-ui/react'
-import { NextComponentType } from 'next'
+import { Flex } from "@chakra-ui/react";
+import { NextComponentType } from "next";
 
-import { HomeHeader } from '../HomeHeader/HomeHeader'
-import { CreateRoomForm } from './CreateRoomForm'
-import { JoinRoomForm } from './JoinRoomForm'
+import { HomeHeader } from "../HomeHeader/HomeHeader";
+import { CreateRoomForm } from "./CreateRoomForm";
+import { JoinRoomForm } from "./JoinRoomForm";
 
 export const Actions: NextComponentType = () => {
   return (
@@ -14,6 +14,7 @@ export const Actions: NextComponentType = () => {
       align="center"
       position="relative"
       px="4px"
+      bg="gray.800"
     >
       <HomeHeader />
 
@@ -23,5 +24,5 @@ export const Actions: NextComponentType = () => {
         <JoinRoomForm />
       </Flex>
     </Flex>
-  )
-}
+  );
+};

@@ -1,11 +1,11 @@
-import { VStack } from '@chakra-ui/react'
-import { NextComponentType } from 'next'
-import { Player } from './Player'
+import { VStack } from "@chakra-ui/react";
+import { NextComponentType } from "next";
+import { Player } from "./Player";
 
 export const PlayersList: NextComponentType = () => {
   return (
     <VStack
-      bg="gray.700"
+      bg="gray.900"
       w="10rem"
       h="49rem"
       p="2"
@@ -24,5 +24,5 @@ export const PlayersList: NextComponentType = () => {
       <Player />
       <Player />
     </VStack>
-  )
-}
+  );
+};

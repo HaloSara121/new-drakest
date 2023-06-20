@@ -1,11 +1,11 @@
-import { Divider, Flex, SimpleGrid, Text } from '@chakra-ui/react'
-import { NoteBlank } from 'phosphor-react'
-import { useState } from 'react'
-import { CharacterCard } from './CharacterCard'
-import { CustomHeading } from './CustomHeading'
+import { Divider, Flex, SimpleGrid, Text } from "@chakra-ui/react";
+import { NoteBlank } from "phosphor-react";
+import { useState } from "react";
+import { CharacterCard } from "./CharacterCard";
+import { CustomHeading } from "./CustomHeading";
 
 export const CharacterSection = () => {
-  const [characters] = useState<number[]>([])
+  const [characters] = useState<number[]>([1, 2]);
 
   return (
     <Flex as="section" w="100%" flexDir="column">
@@ -28,5 +28,5 @@ export const CharacterSection = () => {
         </Flex>
       )}
     </Flex>
-  )
-}
+  );
+};
