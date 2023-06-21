@@ -3,10 +3,18 @@ import { motion } from "framer-motion";
 
 interface MessageProps {
   data: {
-    type: "message" | "command" | "notification";
-    author: string;
+    type:
+      | "message"
+      | "command"
+      | "action"
+      | "whisper"
+      | "thought"
+      | "notification";
+    author: {
+      name: string;
+      image: string;
+    };
     text: string;
-    socket_id: string;
   };
 }
 
@@ -15,7 +23,7 @@ const item = {
   show: {
     opacity: 1,
     transition: {
-      delay: 0.3,
+      delay: 0.2,
     },
   },
 };
@@ -29,6 +37,7 @@ export const Message = ({ data }: MessageProps) => {
         initial="hidden"
         animate="show"
         w="100%"
+        my="2"
         textAlign="center"
       >
         {data.text}
@@ -43,7 +52,6 @@ export const Message = ({ data }: MessageProps) => {
       initial="hidden"
       animate="show"
       minW="100%"
-      minH="fit-content"
       p="2"
       gap="1rem"
       rounded="lg"
@@ -52,13 +60,10 @@ export const Message = ({ data }: MessageProps) => {
       overflow="hidden"
       opacity="1"
     >
-      <Avatar
-        src="https://img.wattpad.com/0b27397dc2ba5e804348d79bd5d84ff0c95f3d52/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f6a315341595174437672655a57413d3d2d3837373230323537372e313630623063613065333664306664313334353438393932333132322e6a7067"
-        size="md"
-      />
+      <Avatar src={data.author.image} size="md" />
 
       <Flex w="100%" flexDir="column">
-        <Text fontWeight="bold">{data.author}</Text>
+        <Text fontWeight="bold">{data.author.name}</Text>
 
         {data.type === "command" ? (
           <Text
