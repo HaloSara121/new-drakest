@@ -21,7 +21,7 @@ const Room: NextPage = () => {
         <Flex flex="1" pb="3.6rem"></Flex>
 
         <PlayersList />
-        {/* <ShieldMaster /> */}
+        <ShieldMaster />
         <Chat />
       </Flex>
     </Flex>

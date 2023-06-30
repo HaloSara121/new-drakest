@@ -1,4 +1,4 @@
-import { NextComponentType } from 'next'
+import { NextComponentType } from "next";
 
 import {
   Divider,
@@ -8,14 +8,14 @@ import {
   Text,
   Image,
   Tooltip,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 
-import { FcGoogle } from 'react-icons/fc'
-import { SignOut } from 'phosphor-react'
-import Link from 'next/link'
+import { FcGoogle } from "react-icons/fc";
+import { SignOut } from "phosphor-react";
+import Link from "next/link";
 
 export const LoginButton: NextComponentType = () => {
-  const user: null | { name: string } = { name: 'vinicius' }
+  const user: null | { name: string } = { name: "vinicius" };
 
   return (
     <Flex color="black">
@@ -27,7 +27,7 @@ export const LoginButton: NextComponentType = () => {
               w="12"
               cursor="pointer"
               borderRadius="md"
-              _hover={{ boxShadow: '0 0 0 3px #D69E2E' }}
+              _hover={{ boxShadow: "0 0 0 3px #D69E2E" }}
               alt="Imagem de perfil"
             />
           </Link>
@@ -39,14 +39,16 @@ export const LoginButton: NextComponentType = () => {
           <Divider orientation="vertical" borderColor="gray.800" border="1px" />
 
           <Tooltip label="Desconectar">
-            <Icon
-              mr="3"
-              fontSize="20"
-              as={SignOut}
-              cursor="pointer"
-              weight="bold"
-              _hover={{ transform: 'scale(1.1)' }}
-            />
+            <Link href="/login">
+              <Icon
+                mr="3"
+                fontSize="20"
+                as={SignOut}
+                cursor="pointer"
+                weight="bold"
+                _hover={{ transform: "scale(1.1)" }}
+              />
+            </Link>
           </Tooltip>
         </Flex>
       ) : (
@@ -54,11 +56,11 @@ export const LoginButton: NextComponentType = () => {
           aria-label="botão de login"
           w="12"
           h="12"
-          _hover={{ filter: 'brightness(0.8)' }}
+          _hover={{ filter: "brightness(0.8)" }}
         >
           <FcGoogle size={32} />
         </IconButton>
       )}
     </Flex>
-  )
-}
+  );
+};

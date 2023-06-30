@@ -1,21 +1,21 @@
-import type { NextComponentType } from 'next'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
+import type { NextComponentType } from "next";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as zod from "zod";
 
-import { Button, Flex, Text } from '@chakra-ui/react'
+import { Button, Flex, Text } from "@chakra-ui/react";
 
-import { Input } from '../../common/Form/Input'
-import { useRouter } from 'next/router'
+import { ActionsInput } from "./ActionsInput";
+import { useRouter } from "next/router";
 
 const JoinRoomFormValidationSchema = zod.object({
-  roomId: zod.string().length(6, 'O id da sala deve ter 6 digitos'),
-})
+  roomId: zod.string().length(6, "O id da sala deve ter 6 digitos"),
+});
 
-type JoinRoomFormData = zod.infer<typeof JoinRoomFormValidationSchema>
+type JoinRoomFormData = zod.infer<typeof JoinRoomFormValidationSchema>;
 
 export const JoinRoomForm: NextComponentType = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const {
     register,
@@ -25,12 +25,12 @@ export const JoinRoomForm: NextComponentType = () => {
     resolver: zodResolver(JoinRoomFormValidationSchema),
 
     defaultValues: {
-      roomId: '',
+      roomId: "",
     },
-  })
+  });
 
   function handleJoinRoom(data: JoinRoomFormData) {
-    router.push(`/room/${data.roomId}`)
+    router.push(`/room/${data.roomId}`);
   }
 
   return (
@@ -51,11 +51,11 @@ export const JoinRoomForm: NextComponentType = () => {
         </Text>
       )}
 
-      <Input
+      <ActionsInput
         placeholder="ID da sala"
         type="number"
-        borderColor={errors.roomId ? 'red.500 !important' : ''}
-        {...register('roomId')}
+        borderColor={errors.roomId ? "red.500 !important" : ""}
+        {...register("roomId")}
       />
 
       <Button
@@ -68,5 +68,5 @@ export const JoinRoomForm: NextComponentType = () => {
         Entrar
       </Button>
     </Flex>
-  )
-}
+  );
+};

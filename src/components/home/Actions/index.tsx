@@ -8,7 +8,7 @@ import { JoinRoomForm } from "./JoinRoomForm";
 export const Actions: NextComponentType = () => {
   return (
     <Flex
-      w="30vw"
+      minW="50rem"
       h="100vh"
       justify="center"
       align="center"
@@ -18,7 +18,7 @@ export const Actions: NextComponentType = () => {
     >
       <HomeHeader />
 
-      <Flex flexDir="column" gap="6rem" w="14rem" mt="8rem">
+      <Flex flexDir="column" gap="6rem" w="25rem" mt="8rem">
         <CreateRoomForm />
 
         <JoinRoomForm />

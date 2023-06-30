@@ -1,17 +1,17 @@
-import { useForm } from 'react-hook-form'
-import type { NextComponentType } from 'next'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
+import { useForm } from "react-hook-form";
+import type { NextComponentType } from "next";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as zod from "zod";
 
-import { Button, Flex, Text } from '@chakra-ui/react'
+import { Button, Flex, Text } from "@chakra-ui/react";
 
-import { Input } from '../../common/Form/Input'
+import { ActionsInput } from "./ActionsInput";
 
 const createRoomFormValidationSchema = zod.object({
-  roomName: zod.string().min(1, 'Informe o nome da sala'),
-})
+  roomName: zod.string().min(1, "Informe o nome da sala"),
+});
 
-type CreateRoomFormData = zod.infer<typeof createRoomFormValidationSchema>
+type CreateRoomFormData = zod.infer<typeof createRoomFormValidationSchema>;
 
 export const CreateRoomForm: NextComponentType = () => {
   const {
@@ -22,13 +22,13 @@ export const CreateRoomForm: NextComponentType = () => {
   } = useForm<CreateRoomFormData>({
     resolver: zodResolver(createRoomFormValidationSchema),
     defaultValues: {
-      roomName: '',
+      roomName: "",
     },
-  })
+  });
 
   function handleCreateRoom(data: CreateRoomFormData) {
-    console.log(data)
-    reset()
+    console.log(data);
+    reset();
   }
 
   return (
@@ -49,11 +49,11 @@ export const CreateRoomForm: NextComponentType = () => {
         </Text>
       )}
 
-      <Input
+      <ActionsInput
         placeholder="Nome da Sala"
         autoComplete="off"
-        borderColor={errors.roomName ? 'red.500 !important' : ''}
-        {...register('roomName', { required: true })}
+        borderColor={errors.roomName ? "red.500 !important" : ""}
+        {...register("roomName", { required: true })}
       />
 
       <Button
@@ -66,5 +66,5 @@ export const CreateRoomForm: NextComponentType = () => {
         Criar
       </Button>
     </Flex>
-  )
-}
+  );
+};

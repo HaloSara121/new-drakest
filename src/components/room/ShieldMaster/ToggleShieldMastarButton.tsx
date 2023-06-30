@@ -1,16 +1,14 @@
-import { Flex, Icon } from '@chakra-ui/react'
-import { CaretDown, CaretUp } from 'phosphor-react'
+import { Flex, Icon } from "@chakra-ui/react";
+import { CaretDown, CaretUp } from "phosphor-react";
 
 interface ToggleShieldMasterButtonProps {
-  isOpen: boolean
-  onClose: () => void
-  onOpen: () => void
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 export const ToggleShieldMasterButton = ({
   isOpen,
-  onClose,
-  onOpen,
+  onToggle,
 }: ToggleShieldMasterButtonProps) => {
   return (
     <Flex align="center" justify="flex-end" w="50%">
@@ -19,18 +17,18 @@ export const ToggleShieldMasterButton = ({
           as={CaretDown}
           fontSize="24"
           cursor="pointer"
-          onClick={onClose}
-          _hover={{ transform: 'scale(1.2)', transition: 'all .2s' }}
+          onClick={onToggle}
+          _hover={{ transform: "scale(1.2)", transition: "all .2s" }}
         />
       ) : (
         <Icon
           as={CaretUp}
           fontSize="24"
           cursor="pointer"
-          onClick={onOpen}
-          _hover={{ transform: 'scale(1.2)', transition: 'all .2s' }}
+          onClick={onToggle}
+          _hover={{ transform: "scale(1.2)", transition: "all .2s" }}
         />
       )}
     </Flex>
-  )
-}
+  );
+};

@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 import { ToggleShieldMasterButton } from "./ToggleShieldMastarButton";
 
 export const ShieldMaster = () => {
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { onToggle, isOpen, onOpen } = useDisclosure();
 
   return (
     <Flex
@@ -102,11 +102,7 @@ export const ShieldMaster = () => {
             SALA
           </Tab>
 
-          <ToggleShieldMasterButton
-            isOpen={isOpen}
-            onClose={onClose}
-            onOpen={onOpen}
-          />
+          <ToggleShieldMasterButton isOpen={isOpen} onToggle={onToggle} />
         </TabList>
         {isOpen && (
           <TabPanels mt="2">
