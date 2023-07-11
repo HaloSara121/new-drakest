@@ -1,32 +1,114 @@
+import { useState } from "react";
 import Link from "next/link";
 import { NextComponentType } from "next";
-import { Eye, EyeClosed } from "phosphor-react";
 import { FcGoogle } from "react-icons/fc";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { api } from "@/services/api";
 
 import {
   Button,
   Divider,
   Flex,
   Heading,
-  Icon,
   Text,
-  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
+
 import { Input } from "../common/Form/Input";
+import { useRouter } from "next/router";
+
+const RegisterFormValidationSchema = z.object({
+  name: z.string().min(1, "O nome é obrigatório"),
+  email: z
+    .string()
+    .min(1, "O E-mail é obrigatório!")
+    .email("Formato de e-mail inválido")
+    .trim(),
+  password: z
+    .string()
+    .min(6, "A senha deve conter no mínimo 6 caracteres")
+    .trim(),
+  passwordConfirmation: z
+    .string()
+    .min(1, "A confirmação de senha é obrigatória")
+    .trim(),
+});
+
+type RegisterFormData = z.infer<typeof RegisterFormValidationSchema>;
 
 export const RegisterSection: NextComponentType = () => {
-  const { isOpen: passwordIsOpen, onToggle: passwordOnToggle } = useDisclosure({
-    id: "password",
+  const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+    setError,
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(RegisterFormValidationSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+    },
   });
-  const { isOpen: confirmPasswordIsOpen, onToggle: confirmPasswordOnToggle } =
-    useDisclosure({
-      id: "confirm_password",
-    });
+
+  const registerFormSubmit = async (data: RegisterFormData) => {
+    if (data.password !== data.passwordConfirmation) {
+      return setError("passwordConfirmation", {
+        type: "value",
+        message: "A senha de confirmação não confere!",
+      });
+    }
+
+    await api
+      .post("/auth/register", {
+        ...data,
+      })
+      .then((response) => {
+        setIsLoading(true);
+        toast({
+          status: "success",
+          position: "top",
+          description: response.data.message,
+        });
+
+        reset();
+        setTimeout(() => {
+          router.push("/login");
+        }, 1000);
+      })
+      .catch((err) => {
+        if (err.response.data.fieldMessage !== "toast") {
+          return setError(err.response.data.fieldMessage, {
+            type: "value",
+            message: err.response.data.message,
+          });
+        } else {
+          toast({
+            status: "error",
+            position: "top",
+            description: err.response.data.message,
+          });
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <Flex w="50rem" h="100vh" justify="center" align="center" bg="gray.800">
       <Flex
         as="form"
+        id="register_form"
+        onSubmit={handleSubmit(registerFormSubmit)}
         flexDir="column"
         maxW="25rem"
         w="100%"
@@ -41,69 +123,54 @@ export const RegisterSection: NextComponentType = () => {
 
         <Flex flexDir="column" gap="1rem" w="100%">
           <Input
-            id="name"
             variant="outline"
             label="Nome"
             placeholder="Digite seu nome"
+            error={errors.name}
+            {...register("name")}
           />
 
           <Input
-            id="email"
             variant="outline"
             label="E-mail"
             placeholder="Digite seu e-mail"
+            error={errors.email}
+            {...register("email")}
           />
 
-          <Flex position="relative">
-            <Input
-              id="password"
-              type={passwordIsOpen ? "text" : "password"}
-              variant="outline"
-              label="Senha"
-              autoComplete="off"
-              pr="2.7rem"
-              placeholder="Digite sua senha"
-            />
-            <Icon
-              as={passwordIsOpen ? EyeClosed : Eye}
-              onClick={passwordOnToggle}
-              cursor="pointer"
-              position="absolute"
-              fontSize="22"
-              right="1rem"
-              bottom=".75rem"
-              rounded="md"
-              zIndex="2"
-              my="auto"
-            />
-          </Flex>
+          <Input
+            variant="outline"
+            label="Senha"
+            autoComplete="off"
+            pr="2.7rem"
+            placeholder="Digite sua senha"
+            isPassword
+            error={errors.password}
+            {...register("password")}
+          />
 
-          <Flex position="relative">
-            <Input
-              id="confirm-password"
-              type={confirmPasswordIsOpen ? "text" : "password"}
-              variant="outline"
-              label="Confirmar senha"
-              autoComplete="off"
-              pr="2.7rem"
-              placeholder="Confirme sua senha"
-            />
-            <Icon
-              as={confirmPasswordIsOpen ? EyeClosed : Eye}
-              onClick={confirmPasswordOnToggle}
-              cursor="pointer"
-              position="absolute"
-              fontSize="22"
-              right="1rem"
-              bottom=".75rem"
-              rounded="md"
-              zIndex="2"
-              my="auto"
-            />
-          </Flex>
+          <Input
+            variant="outline"
+            label="Confirmar senha"
+            autoComplete="off"
+            pr="2.7rem"
+            placeholder="Confirme sua senha"
+            isPassword
+            error={errors.passwordConfirmation}
+            {...register("passwordConfirmation")}
+          />
         </Flex>
 
-        <Button w="100%" h="3.5rem" px="2rem" mt="1rem" colorScheme="green">
+        <Button
+          form="register_form"
+          type="submit"
+          w="100%"
+          h="3.5rem"
+          px="2rem"
+          mt="1rem"
+          colorScheme="green"
+          isLoading={isLoading}
+        >
           Registrar-se
         </Button>
 

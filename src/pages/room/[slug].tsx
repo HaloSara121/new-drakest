@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 
 import { Flex } from "@chakra-ui/react";
 
@@ -26,6 +26,23 @@ const Room: NextPage = () => {
       </Flex>
     </Flex>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const session = true;
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default Room;

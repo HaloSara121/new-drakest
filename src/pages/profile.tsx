@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { Aside } from "../components/profile/Aside";
 import { Main } from "../components/profile/Main";
 
@@ -23,6 +23,23 @@ const Profile: NextPage = () => {
       <Main />
     </Flex>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const session = true;
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default Profile;

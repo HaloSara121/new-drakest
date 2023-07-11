@@ -33,7 +33,7 @@ export const LoginSection: NextComponentType = () => {
     },
   });
 
-  const customSubmit = (data: LoginFormData) => {
+  const loginFormSubmit = (data: LoginFormData) => {
     console.log(data);
     reset();
   };
@@ -50,8 +50,8 @@ export const LoginSection: NextComponentType = () => {
       <Flex
         as="form"
         id="login_form"
+        onSubmit={handleSubmit(loginFormSubmit)}
         flexDir="column"
-        onSubmit={handleSubmit(customSubmit)}
         maxW="25rem"
         w="100%"
         p="4"

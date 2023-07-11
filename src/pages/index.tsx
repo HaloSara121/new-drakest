@@ -20,6 +20,8 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async () => {
   const session = true;
 
+  process.env.API_URL;
+
   if (!session) {
     return {
       redirect: {
