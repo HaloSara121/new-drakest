@@ -67,12 +67,12 @@ export const RegisterSection: NextComponentType = () => {
       });
     }
 
+    setIsLoading(true);
     await api
       .post("/auth/register", {
         ...data,
       })
       .then((response) => {
-        setIsLoading(true);
         toast({
           status: "success",
           position: "top",
