@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { useContext, useState } from "react";
+import { useRouter } from "next/router";
 import { NextComponentType } from "next";
 import { FcGoogle } from "react-icons/fc";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,11 +16,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-import { Input } from "../common/Form/Input";
 import { AuthContext } from "@/contexts/AuthContext";
-import { useContext, useState } from "react";
 import { api } from "@/services/api";
-import { useRouter } from "next/router";
+import { Input } from "../common/Form/Input";
 
 const LoginFormValidationSchema = z.object({
   email: z.string().email("Formato de e-mail inválido").trim(),
@@ -52,7 +52,6 @@ export const LoginSection: NextComponentType = () => {
 
   const loginFormSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-
     await api
       .post("/auth/login", {
         ...data,
