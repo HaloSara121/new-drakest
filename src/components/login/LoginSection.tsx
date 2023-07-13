@@ -5,9 +5,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { Button, Divider, Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 
 import { Input } from "../common/Form/Input";
+import { AuthContext } from "@/contexts/AuthContext";
+import { useContext, useState } from "react";
+import { api } from "@/services/api";
+import { useRouter } from "next/router";
 
 const LoginFormValidationSchema = z.object({
   email: z.string().email("Formato de e-mail inválido").trim(),
@@ -20,11 +31,17 @@ const LoginFormValidationSchema = z.object({
 type LoginFormData = z.infer<typeof LoginFormValidationSchema>;
 
 export const LoginSection: NextComponentType = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { signIn } = useContext(AuthContext);
+  const toast = useToast();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
+    setError,
   } = useForm<LoginFormData>({
     resolver: zodResolver(LoginFormValidationSchema),
     defaultValues: {
@@ -33,9 +50,39 @@ export const LoginSection: NextComponentType = () => {
     },
   });
 
-  const loginFormSubmit = (data: LoginFormData) => {
-    console.log(data);
-    reset();
+  const loginFormSubmit = async (data: LoginFormData) => {
+    setIsLoading(true);
+
+    await api
+      .post("/auth/login", {
+        ...data,
+      })
+      .then((response) => {
+        console.log(response.data.token);
+        signIn(response.data.token);
+        reset();
+        return router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response?.data.fieldMessage !== "toast") {
+          return setError(err.response?.data.fieldMessage, {
+            type: "value",
+            message: err.response.data.message,
+          });
+        } else {
+          toast({
+            status: "error",
+            position: "top",
+            description: err.response.data.message,
+          });
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+
+    return;
   };
 
   return (
@@ -92,6 +139,7 @@ export const LoginSection: NextComponentType = () => {
 
         <Button
           type="submit"
+          isLoading={isLoading}
           form="login_form"
           w="100%"
           h="3.5rem"
