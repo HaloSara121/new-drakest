@@ -1,4 +1,6 @@
+import { api } from "@/services/api";
 import { Flex } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 import { GetServerSideProps, NextPage } from "next";
 import { Aside } from "../components/profile/Aside";
 import { Main } from "../components/profile/Main";
@@ -25,10 +27,25 @@ const Profile: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const session = true;
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const token = req.cookies["auth-token"];
 
-  if (!session) {
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const response = await api.get("/auth/validate", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.status !== 200) {
     return {
       redirect: {
         destination: "/login",

@@ -8,6 +8,7 @@ import {
   Text,
   Image,
   Tooltip,
+  Avatar,
 } from "@chakra-ui/react";
 
 import { FcGoogle } from "react-icons/fc";
@@ -20,7 +21,6 @@ import { useRouter } from "next/router";
 export const LoginButton: NextComponentType = () => {
   const { user, signOut } = useContext(AuthContext);
   const router = useRouter();
-  // const user: null | { name: string } = { name: "vinicius" };
 
   const customSignOut = () => {
     signOut();
@@ -29,14 +29,12 @@ export const LoginButton: NextComponentType = () => {
 
   return (
     <Flex color="black">
-      {/* {user ? ( */}
       <Flex borderRadius="md" gap="3" h="12" align="center" bg="gray.100">
         <Link href="/profile">
           <Image
-            src={
-              user?.image ||
-              "https://i.pinimg.com/564x/c1/b9/b7/c1b9b728c7f2bd396ceb2a85d48277b9.jpg"
-            }
+            as={user?.image ? Image : Avatar}
+            name={user?.name}
+            src={user?.image}
             w="12"
             cursor="pointer"
             borderRadius="md"
@@ -63,16 +61,6 @@ export const LoginButton: NextComponentType = () => {
           />
         </Tooltip>
       </Flex>
-      {/*) : (
-      //   <IconButton
-      //     aria-label="botão de login"
-      //     w="12"
-      //     h="12"
-      //     _hover={{ filter: "brightness(0.8)" }}
-      //   >
-      //     <FcGoogle size={32} />
-      //   </IconButton>
-      // )} */}
     </Flex>
   );
 };

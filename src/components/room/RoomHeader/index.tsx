@@ -9,23 +9,36 @@ import {
   Image,
   Button,
   useToast,
-  Portal,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  Input,
   useDisclosure,
+  Avatar,
 } from "@chakra-ui/react";
-import { ArrowLeft, Copy, Gear, List } from "phosphor-react";
+import {
+  ArrowLeft,
+  CaretLeft,
+  CaretRight,
+  Copy,
+  Gear,
+  List,
+} from "phosphor-react";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { AuthContext } from "@/contexts/AuthContext";
+import { ConfigDrawer } from "./ConfigDrawer";
+import { ToolsDrawer } from "./ToolsDrawer";
 
 export const RoomHeader: NextComponentType = () => {
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    isOpen: configDrawerIsOpen,
+    onClose: configDrawerOnClose,
+    onOpen: configDrawerOnOpen,
+  } = useDisclosure({ id: "configDrawer" });
+  const {
+    isOpen: toolsDrawerIsOpen,
+    onClose: toolsDrawerOnClose,
+    onOpen: toolsDrawerOnOpen,
+    onToggle: toolsDrawerToggle,
+  } = useDisclosure({ id: "toolsDrawer" });
+  const { user } = useContext(AuthContext);
   const btnRef = useRef(null);
   const router = useRouter();
   const toast = useToast();
@@ -59,7 +72,7 @@ export const RoomHeader: NextComponentType = () => {
               fontSize="24px"
               _hover={{ transform: "scale(1.1)" }}
               cursor="pointer"
-              onClick={onOpen}
+              onClick={configDrawerOnOpen}
             />
 
             <Icon
@@ -67,6 +80,7 @@ export const RoomHeader: NextComponentType = () => {
               fontSize="24px"
               _hover={{ transform: "scale(1.1)" }}
               cursor="pointer"
+              onClick={toolsDrawerOnOpen}
             />
           </HStack>
         </Flex>
@@ -89,7 +103,9 @@ export const RoomHeader: NextComponentType = () => {
           <Flex rounded="md" gap="3" h="12" pr="3" align="center" bg="gray.600">
             <Link href="/profile">
               <Image
-                src="https://github.com/HaloSara121.png"
+                as={user?.image ? Image : Avatar}
+                name={user?.name}
+                src={user?.image}
                 w="12"
                 cursor="pointer"
                 rounded="md"
@@ -99,37 +115,46 @@ export const RoomHeader: NextComponentType = () => {
             </Link>
 
             <Text fontWeight="bold" fontFamily="Quicksand">
-              Vinicius Paes Berna
+              {user?.name}
             </Text>
           </Flex>
         </Flex>
 
-        <Portal>
-          <Drawer
-            isOpen={isOpen}
-            placement="left"
-            onClose={onClose}
-            size="md"
-            finalFocusRef={btnRef}
+        <ConfigDrawer
+          isOpen={configDrawerIsOpen}
+          onClose={configDrawerOnClose}
+        />
+
+        <Flex
+          bg="gray.900"
+          position="absolute"
+          left="0"
+          top="0"
+          w={toolsDrawerIsOpen ? "33.1rem" : "4"}
+          h="100vh"
+          transition="width .150s "
+          align="center"
+          justify="flex-end"
+          onClick={toolsDrawerToggle}
+          cursor="pointer"
+          zIndex={20}
+        >
+          <Flex
+            h="20"
+            bg="gray.700"
+            border="1px solid"
+            borderColor="gray.900"
+            align="center"
+            justify="center"
           >
-            <DrawerOverlay />
-            <DrawerContent bg="gray.800" w="25vw">
-              <DrawerCloseButton />
-              <DrawerHeader>Create your account</DrawerHeader>
+            <Icon as={toolsDrawerIsOpen ? CaretLeft : CaretRight} />
+          </Flex>
 
-              <DrawerBody>
-                <Input placeholder="Type here..." />
-              </DrawerBody>
-
-              <DrawerFooter>
-                <Button variant="outline" mr={3} onClick={onClose}>
-                  Cancel
-                </Button>
-                <Button colorScheme="blue">Save</Button>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
-        </Portal>
+          <ToolsDrawer
+            isOpen={toolsDrawerIsOpen}
+            onClose={toolsDrawerOnClose}
+          />
+        </Flex>
       </Flex>
     </Flex>
   );

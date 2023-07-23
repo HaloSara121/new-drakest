@@ -6,7 +6,7 @@ import { Avatar, Flex, Text } from "@chakra-ui/react";
 interface MessageProps {
   data: {
     type:
-      | "message"
+      | "speak"
       | "command"
       | "action"
       | "whisper"

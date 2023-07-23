@@ -8,13 +8,7 @@ import { Message } from "./Message";
 import { MessageInput } from "./MessageInput";
 
 type Message = {
-  type:
-    | "message"
-    | "command"
-    | "action"
-    | "whisper"
-    | "thought"
-    | "notification";
+  type: "speak" | "command" | "action" | "whisper" | "thought" | "notification";
   author: {
     name: string;
     image: string;
@@ -25,7 +19,7 @@ type Message = {
 export const Chat: NextComponentType = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      type: "message",
+      type: "speak",
       author: {
         name: "HaloSara121",
         image:
@@ -34,7 +28,7 @@ export const Chat: NextComponentType = () => {
       text: "Prólogo Neste último exercício da Parte 1, iremos praticar não só o que vimos até agora no curso mas também outra habilidade importante de um programador: utilizar e interagir com código escrito por terceiros. Aqui, você não irá implementar o seu programa do zero. Você irá partir de um programa já iniciado e irá completá-lo. Na verdade, esse é o caso mais comum na indústria de software, onde muitos desenvolvedores trabalham colaborativamente em um mesmo programa. Introdução Manuel Estandarte é monitor na disciplina Introdução à Produção Textual I na Universidade de Pasárgada (UPA). Durante o período letivo, Manuel descobriu que uma epidemia de COH-PIAH estava se espalhando pela UPA. Essa doença rara e altamente contagiosa faz com que indivíduos contaminados produzam, involuntariamente, textos muito semelhantes aos de outras pessoas. Após a entrega da primeira redação, Manuel desconfiou que alguns alunos estavam sofrendo de COH-PIAH. Manuel, preocupado com a saúde da turma, resolveu buscar um método para identificar os casos de COH-PIAH. Para isso, ele necessita da sua ajuda para desenvolver um programa que o auxilie a identificar os alunos contaminados.",
     },
     {
-      type: "message",
+      type: "speak",
       author: {
         name: "HaloSara121",
         image:

@@ -1,7 +1,17 @@
-import { Avatar, Flex, Icon, Text } from '@chakra-ui/react'
-import { Pencil } from 'phosphor-react'
+import { AuthContext } from "@/contexts/AuthContext";
+import { Avatar, Flex, Icon, Text } from "@chakra-ui/react";
+import { Pencil } from "phosphor-react";
+import { useContext } from "react";
 
 export const AvatarSection = () => {
+  const { user } = useContext(AuthContext);
+  // const router = useRouter();
+
+  // const customSignOut = () => {
+  //   signOut();
+  //   router.push("/login");
+  // };
+
   return (
     <Flex
       as="section"
@@ -27,24 +37,20 @@ export const AvatarSection = () => {
             boxShadow="xl"
             cursor="pointer"
             _hover={{
-              transform: 'scale(1.1)',
-              color: 'yellow.400',
+              transform: "scale(1.1)",
+              color: "yellow.400",
             }}
           >
             <Icon as={Pencil} fontSize="24px" />
           </Flex>
 
-          <Avatar
-            src="https://github.com/HaloSara121.png"
-            size="2xl"
-            zIndex="99"
-          />
+          <Avatar src={user?.image} name={user?.name} size="2xl" zIndex="99" />
         </Flex>
 
         <Text fontWeight="medium" fontSize="2xl">
-          Vinicius Paes Berna
+          {user?.name}
         </Text>
       </Flex>
     </Flex>
-  )
-}
+  );
+};

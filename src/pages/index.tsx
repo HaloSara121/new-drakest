@@ -20,8 +20,7 @@ const Home: NextPage = () => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const cookies = new Cookies(req, res);
-  const token = cookies.get("auth-token");
+  const token = req.cookies["auth-token"];
 
   if (!token) {
     return {

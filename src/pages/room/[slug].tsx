@@ -8,30 +8,49 @@ import { RoomHeader } from "../../components/room/RoomHeader";
 import { PlayersList } from "../../components/room/Players";
 import { ShieldMaster } from "../../components/room/ShieldMaster";
 import { Chat } from "@/components/room/Chat";
+import { api } from "@/services/api";
+import { RoomContextProvider } from "@/contexts/RoomContext";
 
 const Room: NextPage = () => {
   // const socket = io("http://localhost:3333");
   // socket.emit("entrei", `socket ${socket.id} entrou sala`);
 
   return (
-    <Flex flexDir="column" h="100vh">
-      <RoomHeader />
+    <RoomContextProvider>
+      <Flex flexDir="column" h="100vh">
+        <RoomHeader />
 
-      <Flex>
-        <Flex flex="1" pb="3.6rem"></Flex>
+        <Flex>
+          <Flex flex="1" pb="3.6rem"></Flex>
 
-        <PlayersList />
-        <ShieldMaster />
-        <Chat />
+          <PlayersList />
+          <ShieldMaster />
+          <Chat />
+        </Flex>
       </Flex>
-    </Flex>
+    </RoomContextProvider>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const session = true;
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const token = req.cookies["auth-token"];
 
-  if (!session) {
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const response = await api.get("/auth/validate", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.status !== 200) {
     return {
       redirect: {
         destination: "/login",

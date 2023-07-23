@@ -1,10 +1,21 @@
-import { HouseLine, SignOut } from 'phosphor-react'
+import { HouseLine, SignOut } from "phosphor-react";
 
-import { Flex, Link, Tooltip } from '@chakra-ui/react'
+import { Flex, Link, Tooltip } from "@chakra-ui/react";
 
-import { AvatarSection } from './AvatarSection'
+import { AvatarSection } from "./AvatarSection";
+import { AuthContext } from "@/contexts/AuthContext";
+import { useContext } from "react";
+import { useRouter } from "next/router";
 
 export const Aside = () => {
+  const { signOut } = useContext(AuthContext);
+  const router = useRouter();
+
+  const customSignOut = () => {
+    signOut();
+    router.push("/login");
+  };
+
   return (
     <Flex
       as="aside"
@@ -24,7 +35,7 @@ export const Aside = () => {
           </Tooltip>
         </Link>
 
-        <Link href="/">
+        <Link href="/login" onClick={customSignOut}>
           <Tooltip label="Desconectar">
             <SignOut size={32} />
           </Tooltip>
@@ -33,5 +44,5 @@ export const Aside = () => {
 
       <AvatarSection />
     </Flex>
-  )
-}
+  );
+};
