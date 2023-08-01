@@ -20,19 +20,18 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { api } from "@/services/api";
 import { Input } from "../common/Form/Input";
 
-const LoginFormValidationSchema = z.object({
-  email: z.string().email("Formato de e-mail inválido").trim(),
+const ResetPasswordFormValidationSchema = z.object({
   password: z
     .string()
     .min(6, "A senha deve conter no mínimo 6 caracteres")
     .trim(),
+  passwordConfirmation: z.string().trim(),
 });
 
-type LoginFormData = z.infer<typeof LoginFormValidationSchema>;
+type ResetPasswordFormData = z.infer<typeof ResetPasswordFormValidationSchema>;
 
-export const LoginSection: NextComponentType = () => {
+export const ResetPasswordSection: NextComponentType = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { signIn } = useContext(AuthContext);
   const toast = useToast();
   const router = useRouter();
 
@@ -42,24 +41,35 @@ export const LoginSection: NextComponentType = () => {
     reset,
     formState: { errors },
     setError,
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(LoginFormValidationSchema),
+  } = useForm<ResetPasswordFormData>({
+    resolver: zodResolver(ResetPasswordFormValidationSchema),
     defaultValues: {
-      email: "",
       password: "",
+      passwordConfirmation: "",
     },
   });
 
-  const loginFormSubmit = async (data: LoginFormData) => {
+  const resetPasswordFormSubmit = async (data: ResetPasswordFormData) => {
     setIsLoading(true);
+
+    const params = router.asPath.split("/");
+    const userId = params[2];
+    const resetPasswordToken = params[3];
+    console.log(params);
+
     await api
-      .post("/auth/login", {
+      .post(`/auth/password-reset/${userId}/${resetPasswordToken}`, {
         ...data,
       })
       .then((response) => {
-        signIn(response.data.token);
+        toast({
+          status: "success",
+          position: "top",
+          description: response.data.message,
+        });
+
         reset();
-        return router.push("/");
+        return router.push("/login");
       })
       .catch((err) => {
         console.log(err);
@@ -95,7 +105,7 @@ export const LoginSection: NextComponentType = () => {
       <Flex
         as="form"
         id="login_form"
-        onSubmit={handleSubmit(loginFormSubmit)}
+        onSubmit={handleSubmit(resetPasswordFormSubmit)}
         flexDir="column"
         maxW="25rem"
         w="100%"
@@ -104,22 +114,12 @@ export const LoginSection: NextComponentType = () => {
         align="center"
         gap="4"
       >
-        <Heading color="yellow.500">Faça login</Heading>
+        <Heading color="yellow.500">Redefinir senha</Heading>
 
         <Divider my="2" />
 
         <Flex flexDir="column" gap="1rem" w="100%">
           <Input
-            id="email"
-            variant="outline"
-            label="E-mail"
-            placeholder="Digite seu e-mail"
-            error={errors.email}
-            {...register("email")}
-          />
-
-          <Input
-            id="password"
             variant="outline"
             label="Senha"
             autoComplete="off"
@@ -130,14 +130,16 @@ export const LoginSection: NextComponentType = () => {
             {...register("password")}
           />
 
-          <Button
-            onClick={() => router.push("/forgot-password")}
-            w="fit-content"
-            alignSelf="center"
-            variant="link"
-          >
-            Esqueceu sua senha?
-          </Button>
+          <Input
+            variant="outline"
+            label="Confirmar senha"
+            autoComplete="off"
+            pr="2.7rem"
+            placeholder="Confirme sua senha"
+            isPassword
+            error={errors.passwordConfirmation}
+            {...register("passwordConfirmation")}
+          />
         </Flex>
 
         <Button
@@ -150,39 +152,7 @@ export const LoginSection: NextComponentType = () => {
           mt="1rem"
           colorScheme="green"
         >
-          Fazer login
-        </Button>
-
-        <Flex gap="1" color="gray.200">
-          <Text fontWeight="bold">Não tem uma conta?</Text>
-          <Button
-            w="fit-content"
-            color="yellow.500"
-            alignSelf="center"
-            variant="link"
-          >
-            <Link href="/register">Crie Uma!</Link>
-          </Button>
-        </Flex>
-
-        <Flex w="100%" align="center" gap="1rem">
-          <Divider />
-          <Text>ou</Text>
-          <Divider />
-        </Flex>
-
-        <Button
-          w="100%"
-          h="3.5rem"
-          px="2rem"
-          border="2px solid"
-          color="black"
-          fontWeight="bold"
-          transition="filter .2s"
-          _hover={{ filter: "brightness(.8)" }}
-          leftIcon={<FcGoogle size="32" />}
-        >
-          Continue com o Google
+          Redefinir senha
         </Button>
       </Flex>
     </Flex>

@@ -1,5 +1,4 @@
 import type { GetServerSideProps, NextPage } from "next";
-import Cookies from "cookies";
 
 import { Flex } from "@chakra-ui/react";
 
